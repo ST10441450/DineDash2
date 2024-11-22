@@ -1,32 +1,28 @@
+// App.js
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'; // Correct import
-import LoginScreen from '../DineDash/screens/LoginScreen';
-import HomeScreen from '../DineDash/screens/HomeScreen';
-import AddMenuItemScreen from '../DineDash/screens/AddMenuItemScreen';
-import MenuScreen from '../DineDash/screens/MenuScreen';
-import PaymentScreen from '../DineDash/screens/PaymentScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import { MenuProvider } from '../contexts/MenuContext'; // Import MenuProvider
+import LoginScreen from '../screens/LoginScreen'
+import HomeScreen from '../screens/HomeScreen';
+import MenuScreen from '../screens/MenuScreen';
+import AddMenuItemScreen from '../screens/AddMenuItemScreen';
 
-import { registerRootComponent } from 'expo';
-
-const Stack = createNativeStackNavigator(); // Use createNativeStackNavigator
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <MenuProvider>  {/* Wrap your app with the MenuProvider */}
+      <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
-        <Stack.Screen name="Menu" component={MenuScreen} />
-        <Stack.Screen name="Payment" component={PaymentScreen} />
-
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Menu" component={MenuScreen} />
+          <Stack.Screen name="AddMenuItem" component={AddMenuItemScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </MenuProvider>
   );
 };
-
-//Register the main component
-registerRootComponent(App);
 
 export default App;
